@@ -40,6 +40,7 @@ export class AuthService {
   }
 
   logout(): void {
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe();
     localStorage.removeItem('zt_token');
     localStorage.removeItem('zt_user');
     this.currentUser.set(null);
@@ -47,11 +48,15 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  updateProfile(data: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/profile`, data).pipe(
-      tap(user => {
-        this.currentUser.set(user);
-        localStorage.setItem('zt_user', JSON.stringify(user));
+  updateProfile(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/profile`, data).pipe(
+      tap(profile => {
+        const user = this.currentUser();
+        if (user) {
+          user.profile = profile;
+          this.currentUser.set({ ...user });
+          localStorage.setItem('zt_user', JSON.stringify(user));
+        }
       })
     );
   }

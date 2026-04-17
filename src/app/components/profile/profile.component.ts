@@ -15,12 +15,12 @@ import { User } from '../../models/user.model';
       @if (!editing()) {
         <div class="profile-card">
           <div class="profile-header">
-            <img [src]="user()?.profile_image || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + user()?.name"
-                 [alt]="user()?.name" class="avatar">
+            <img [src]="profile()?.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + user()?.name"
+                 [alt]="profile()?.nickname || user()?.name" class="avatar">
             <div>
-              <h3>{{ user()?.name }}</h3>
-              <span class="user-type" [class.zombie]="user()?.type === 'zombie'">
-                {{ user()?.type === 'zombie' ? '🧟 Zombi' : '🏃 Túlélő' }}
+              <h3>{{ profile()?.nickname || user()?.name }}</h3>
+              <span class="user-type" [class.zombie]="profile()?.type === 'zombie'">
+                {{ profile()?.type === 'zombie' ? '🧟 Zombi' : '🏃 Túlélő' }}
               </span>
             </div>
           </div>
@@ -32,30 +32,23 @@ import { User } from '../../models/user.model';
             </div>
             <div class="detail">
               <span class="label">Kor:</span>
-              <span>{{ user()?.age }}</span>
+              <span>{{ profile()?.age || 'Nincs megadva' }}</span>
             </div>
             <div class="detail">
-              <span class="label">Hely:</span>
-              <span>{{ user()?.location }}</span>
+              <span class="label">Státusz:</span>
+              <span>{{ profile()?.status === 'undead' ? '💀 Élőhalott' : profile()?.status === 'alive' ? '✨ Életben' : '☠️ Halott' }}</span>
             </div>
             <div class="detail">
               <span class="label">Bemutatkozás:</span>
-              <span>{{ user()?.bio || 'Nincs megadva' }}</span>
+              <span>{{ profile()?.bio || 'Nincs megadva' }}</span>
             </div>
-
-            @if (user()?.interests?.length) {
-              <div class="detail">
-                <span class="label">Érdeklődés:</span>
-                <div class="tags">
-                  @for (interest of user()?.interests; track interest) {
-                    <span class="tag">{{ interest }}</span>
-                  }
-                </div>
-              </div>
-            }
           </div>
 
           <button class="btn-primary" (click)="startEdit()">✏️ Szerkesztés</button>
+
+          @if (!profile()) {
+            <p class="no-profile-hint">⚠️ Még nincs profilod! Kattints a szerkesztésre a létrehozáshoz.</p>
+          }
         </div>
       } @else {
         <div class="profile-card">
@@ -68,24 +61,29 @@ import { User } from '../../models/user.model';
 
           <form [formGroup]="form" (ngSubmit)="onSave()">
             <div class="form-group">
-              <label>Név</label>
-              <input formControlName="name">
+              <label>Típus</label>
+              <div class="type-selector">
+                <button type="button" class="type-btn" [class.selected]="form.get('type')?.value === 'zombie'"
+                        (click)="form.get('type')?.setValue('zombie')">🧟 Zombi</button>
+                <button type="button" class="type-btn" [class.selected]="form.get('type')?.value === 'survivor'"
+                        (click)="form.get('type')?.setValue('survivor')">🏃 Túlélő</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Becenév</label>
+              <input formControlName="nickname">
             </div>
             <div class="form-group">
               <label>Kor</label>
               <input type="number" formControlName="age">
             </div>
             <div class="form-group">
-              <label>Helyszín</label>
-              <input formControlName="location">
-            </div>
-            <div class="form-group">
               <label>Bemutatkozás</label>
               <textarea formControlName="bio" rows="3"></textarea>
             </div>
             <div class="form-group">
-              <label>Profilkép URL</label>
-              <input formControlName="profile_image">
+              <label>Avatar URL</label>
+              <input formControlName="avatar">
             </div>
 
             <div class="form-actions">
@@ -180,6 +178,36 @@ import { User } from '../../models/user.model';
 
     .form-group { margin-bottom: 1rem; }
 
+    .type-selector {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .type-btn {
+      flex: 1;
+      padding: 0.75rem;
+      border: 2px solid #2a2a4a;
+      border-radius: 0.5rem;
+      background: #0f3460;
+      color: #ccc;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .type-btn.selected {
+      border-color: #e94560;
+      color: #e94560;
+      background: rgba(233, 69, 96, 0.1);
+    }
+
+    .no-profile-hint {
+      color: #ff9800;
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
     label {
       display: block;
       color: #ccc;
@@ -256,6 +284,7 @@ import { User } from '../../models/user.model';
 })
 export class ProfileComponent implements OnInit {
   user = () => this.auth.currentUser();
+  profile = () => this.auth.currentUser()?.profile;
   editing = signal(false);
   saving = signal(false);
   form!: FormGroup;
@@ -272,13 +301,13 @@ export class ProfileComponent implements OnInit {
   }
 
   initForm(): void {
-    const u = this.user();
+    const p = this.profile();
     this.form = this.fb.group({
-      name: [u?.name || '', Validators.required],
-      age: [u?.age || '', Validators.required],
-      location: [u?.location || ''],
-      bio: [u?.bio || ''],
-      profile_image: [u?.profile_image || '']
+      type: [p?.type || 'zombie', Validators.required],
+      nickname: [p?.nickname || '', Validators.required],
+      age: [p?.age || ''],
+      bio: [p?.bio || ''],
+      avatar: [p?.avatar || '']
     });
   }
 

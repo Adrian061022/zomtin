@@ -36,20 +36,6 @@ import { AuthService } from '../../services/auth.service';
           </div>
 
           <div class="form-group">
-            <label>Típus</label>
-            <div class="type-selector">
-              <button type="button" class="type-btn" [class.selected]="form.get('type')?.value === 'zombie'"
-                      (click)="form.get('type')?.setValue('zombie')">
-                🧟 Zombi
-              </button>
-              <button type="button" class="type-btn" [class.selected]="form.get('type')?.value === 'survivor'"
-                      (click)="form.get('type')?.setValue('survivor')">
-                🏃 Túlélő
-              </button>
-            </div>
-          </div>
-
-          <div class="form-group">
             <label for="password">Jelszó</label>
             <input id="password" type="password" formControlName="password" placeholder="••••••••">
             @if (form.get('password')?.touched && form.get('password')?.errors?.['minlength']) {
@@ -202,7 +188,6 @@ export class RegisterComponent {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      type: ['zombie', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       password_confirmation: ['', Validators.required]
     });
@@ -220,7 +205,7 @@ export class RegisterComponent {
     this.auth.register(this.form.value).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/swipe']);
+        this.router.navigate(['/profile']);
       },
       error: (err) => {
         this.loading = false;

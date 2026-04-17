@@ -29,7 +29,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
           @for (msg of messages(); track msg.id) {
             <div class="message" [class.sent]="msg.sender_id === currentUserId()" [class.received]="msg.sender_id !== currentUserId()">
               <div class="bubble">
-                <p>{{ msg.content }}</p>
+                <p>{{ msg.body }}</p>
                 <span class="time">{{ msg.created_at | timeAgo }}</span>
               </div>
             </div>
@@ -217,11 +217,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   sendMessage(): void {
-    const content = this.newMessage.trim();
-    if (!content) return;
+    const body = this.newMessage.trim();
+    if (!body) return;
 
     this.sending.set(true);
-    this.chatService.sendMessage(this.matchId, { content }).subscribe({
+    this.chatService.sendMessage(this.matchId, { body }).subscribe({
       next: (msg) => {
         this.messages.update(msgs => [...msgs, msg]);
         this.newMessage = '';

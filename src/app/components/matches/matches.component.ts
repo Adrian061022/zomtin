@@ -25,19 +25,18 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
         </div>
       } @else {
         <div class="match-list">
-          @for (match of matches(); track match.id) {
-            <a [routerLink]="['/chat', match.id]" class="match-item">
-              <img [src]="match.user.profile_image || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + match.user.name"
-                   [alt]="match.user.name" class="match-avatar">
+          @for (match of matches(); track match.match_id) {
+            <a [routerLink]="['/chat', match.match_id]" class="match-item">
+              <img [src]="match.partner.profile?.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + match.partner.name"
+                   [alt]="match.partner.name" class="match-avatar">
               <div class="match-info">
                 <div class="match-header">
-                  <h4>{{ match.user.name }}</h4>
-                  <span class="match-type" [class.zombie]="match.user.type === 'zombie'">
-                    {{ match.user.type === 'zombie' ? '🧟' : '🏃' }}
+                  <h4>{{ match.partner.profile?.nickname || match.partner.name }}</h4>
+                  <span class="match-type" [class.zombie]="match.partner.profile?.type === 'zombie'">
+                    {{ match.partner.profile?.type === 'zombie' ? '🧟' : '🏃' }}
                   </span>
                 </div>
-                <p class="last-msg">{{ match.last_message || 'Még nincs üzenet...' }}</p>
-                <span class="match-time">{{ match.matched_at | timeAgo }}</span>
+                <span class="match-time">{{ match.created_at | timeAgo }}</span>
               </div>
             </a>
           }

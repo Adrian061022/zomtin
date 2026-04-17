@@ -1,22 +1,26 @@
+import { User } from './user.model';
+
 export interface Match {
-  id: number;
-  user: {
-    id: number;
-    name: string;
-    profile_image: string;
-    type: 'zombie' | 'survivor';
-  };
-  matched_at: string;
-  last_message?: string;
+  match_id: number;
+  partner: User;
+  created_at: string;
 }
 
 export interface SwipeAction {
-  target_user_id: number;
-  action: 'like' | 'dislike' | 'eat'; // "eat" is zombie special
+  swiped_id: number;
+  direction: 'like' | 'dislike';
 }
 
 export interface SwipeResponse {
-  match: boolean;
-  match_id?: number;
-  message?: string;
+  swipe: {
+    id: number;
+    swiper_id: number;
+    swiped_id: number;
+    direction: string;
+  };
+  match: {
+    id: number;
+    user_one_id: number;
+    user_two_id: number;
+  } | null;
 }

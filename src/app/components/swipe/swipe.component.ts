@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatchService } from '../../services/match.service';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user.model';
+import { Profile } from '../../models/user.model';
 
 @Component({
   selector: 'app-swipe',
@@ -23,48 +23,26 @@ import { User } from '../../models/user.model';
           <h3>Nincs több jelölt</h3>
           <p>Mindenkit megnéztél... vagy megettél.</p>
         </div>
-      } @else {
+      } @else if (currentCandidate(); as c) {
         <div class="card-stack">
           <div class="swipe-card" [class.swiping-left]="swipeDir === 'left'" [class.swiping-right]="swipeDir === 'right'">
             <div class="card-image">
-              <img [src]="currentCandidate()?.profile_image || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + currentCandidate()?.name"
-                   [alt]="currentCandidate()?.name">
-              <div class="card-badge" [class.zombie]="currentCandidate()?.type === 'zombie'">
-                {{ currentCandidate()?.type === 'zombie' ? '🧟 Zombi' : '🏃 Túlélő' }}
+              <img [src]="c.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + c.nickname"
+                   [alt]="c.nickname">
+              <div class="card-badge" [class.zombie]="c.type === 'zombie'">
+                {{ c.type === 'zombie' ? '🧟 Zombi' : '🏃 Túlélő' }}
               </div>
             </div>
             <div class="card-info">
-              <h3>{{ currentCandidate()?.name }}, {{ currentCandidate()?.age }}</h3>
-              <p class="location">📍 {{ currentCandidate()?.location }}</p>
-              <p class="bio">{{ currentCandidate()?.bio }}</p>
-
-              @if (currentCandidate()?.type === 'zombie' && currentCandidate()?.zombie_level) {
-                <div class="stat">
-                  <span>Zombi szint:</span>
-                  <div class="level-bar">
-                    <div class="level-fill" [style.width.%]="(currentCandidate()?.zombie_level || 0) * 10"></div>
-                  </div>
-                </div>
-              }
-
-              @if (currentCandidate()?.interests?.length) {
-                <div class="interests">
-                  @for (interest of currentCandidate()?.interests; track interest) {
-                    <span class="tag">{{ interest }}</span>
-                  }
-                </div>
-              }
+              <h3>{{ c.nickname }}{{ c.age ? ', ' + c.age : '' }}</h3>
+              <p class="bio">{{ c.bio || 'Nincs bemutatkozás...' }}</p>
+              <span class="status-badge">{{ c.status === 'undead' ? '💀 Élőhalott' : '✨ Életben' }}</span>
             </div>
 
             <div class="card-actions">
               <button class="action-btn dislike" (click)="onSwipe('dislike')">
                 👎<span>Nem kell</span>
               </button>
-              @if (auth.currentUser()?.type === 'zombie') {
-                <button class="action-btn eat" (click)="onSwipe('eat')">
-                  🍖<span>Megevés</span>
-                </button>
-              }
               <button class="action-btn like" (click)="onSwipe('like')">
                 ❤️<span>Tetszik</span>
               </button>
@@ -309,7 +287,7 @@ import { User } from '../../models/user.model';
   `]
 })
 export class SwipeComponent implements OnInit {
-  candidates = signal<User[]>([]);
+  candidates = signal<Profile[]>([]);
   currentIndex = signal(0);
   loading = signal(true);
   matchPopup = signal(false);
@@ -320,7 +298,7 @@ export class SwipeComponent implements OnInit {
     public auth: AuthService
   ) {}
 
-  currentCandidate = () => this.candidates()[this.currentIndex()];
+  currentCandidate = () => this.candidates()[this.currentIndex()] as Profile | undefined;
 
   ngOnInit(): void {
     this.loadCandidates();
@@ -329,8 +307,8 @@ export class SwipeComponent implements OnInit {
   loadCandidates(): void {
     this.loading.set(true);
     this.matchService.getCandidates().subscribe({
-      next: (users) => {
-        this.candidates.set(users);
+      next: (profiles) => {
+        this.candidates.set(profiles);
         this.currentIndex.set(0);
         this.loading.set(false);
       },
@@ -340,13 +318,13 @@ export class SwipeComponent implements OnInit {
     });
   }
 
-  onSwipe(action: 'like' | 'dislike' | 'eat'): void {
+  onSwipe(direction: 'like' | 'dislike'): void {
     const candidate = this.currentCandidate();
     if (!candidate) return;
 
-    this.swipeDir = action === 'like' ? 'right' : 'left';
+    this.swipeDir = direction === 'like' ? 'right' : 'left';
 
-    this.matchService.swipe({ target_user_id: candidate.id, action }).subscribe({
+    this.matchService.swipe({ swiped_id: candidate.user_id, direction }).subscribe({
       next: (res) => {
         if (res.match) {
           this.matchPopup.set(true);

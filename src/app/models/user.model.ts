@@ -1,16 +1,23 @@
+export interface Profile {
+  id: number;
+  user_id: number;
+  type: 'zombie' | 'survivor';
+  nickname: string;
+  bio: string | null;
+  avatar: string | null;
+  age: number | null;
+  status: 'undead' | 'alive' | 'dead';
+  created_at: string;
+  updated_at: string;
+  user?: User;
+}
+
 export interface User {
   id: number;
   name: string;
   email: string;
-  type: 'zombie' | 'survivor';
-  bio: string;
-  profile_image: string;
-  age: number;
-  location: string;
-  interests: string[];
-  zombie_level?: number; // 1-10, only for zombies
-  survival_skills?: string[]; // only for survivors
   created_at: string;
+  profile?: Profile | null;
 }
 
 export interface AuthResponse {
@@ -28,5 +35,4 @@ export interface RegisterRequest {
   email: string;
   password: string;
   password_confirmation: string;
-  type: 'zombie' | 'survivor';
 }

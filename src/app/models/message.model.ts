@@ -2,10 +2,14 @@ export interface Message {
   id: number;
   match_id: number;
   sender_id: number;
-  content: string;
+  body: string;
   created_at: string;
+  sender?: {
+    id: number;
+    name: string;
+  };
 }
 
 export interface SendMessageRequest {
-  content: string;
+  body: string;
 }
