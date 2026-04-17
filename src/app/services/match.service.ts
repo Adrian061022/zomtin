@@ -6,7 +6,7 @@ import { SwipeAction, SwipeResponse, Match } from '../models/match.model';
 
 @Injectable({ providedIn: 'root' })
 export class MatchService {
-  private readonly apiUrl = 'http://localhost:8000/api';
+  private readonly apiUrl = 'http://10.1.47.5:8000/api';
 
   constructor(private http: HttpClient) {}
 
@@ -23,5 +23,10 @@ export class MatchService {
   /** Get all matches */
   getMatches(): Observable<Match[]> {
     return this.http.get<Match[]>(`${this.apiUrl}/matches`);
+  }
+
+  /** Eat a match partner 🧟 */
+  eatMatch(matchId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/matches/${matchId}/eat`, {});
   }
 }

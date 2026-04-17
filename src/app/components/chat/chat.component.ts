@@ -1,8 +1,9 @@
 import { Component, OnInit, signal, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
+import { MatchService } from '../../services/match.service';
 import { AuthService } from '../../services/auth.service';
 import { Message } from '../../models/message.model';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
@@ -16,6 +17,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       <div class="chat-header">
         <a routerLink="/matches" class="back-btn">← Vissza</a>
         <h3>💬 Chat</h3>
+        <button class="eat-btn" (click)="eatPartner()" title="Megettem!">🍽️</button>
       </div>
 
       <div class="messages-container" #messagesContainer>
@@ -75,7 +77,22 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       font-weight: 600;
     }
 
-    .chat-header h3 { color: #fff; margin: 0; }
+    .chat-header h3 { color: #fff; margin: 0; flex: 1; }
+
+    .eat-btn {
+      background: none;
+      border: 2px solid #d29922;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .eat-btn:hover { background: rgba(210,153,34,0.15); transform: scale(1.1); }
 
     .messages-container {
       flex: 1;
@@ -193,8 +210,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private chatService: ChatService,
+    private matchService: MatchService,
     private auth: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -235,5 +254,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     try {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
     } catch {}
+  }
+
+  eatPartner(): void {
+    if (!confirm('Biztosan meg akarod enni? 🧟‍♂️')) return;
+    this.matchService.eatMatch(this.matchId).subscribe({
+      next: () => this.router.navigate(['/matches']),
+      error: () => alert('Nem sikerült megenni... 😢')
+    });
   }
 }

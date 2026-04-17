@@ -38,6 +38,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
                 </div>
                 <span class="match-time">{{ match.created_at | timeAgo }}</span>
               </div>
+              <button class="eat-btn" (click)="eatMatch($event, match.match_id)" title="Megettem!">🍽️</button>
             </a>
           }
         </div>
@@ -130,6 +131,22 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       color: #666;
       font-size: 0.75rem;
     }
+
+    .eat-btn {
+      background: none;
+      border: 2px solid #d29922;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .eat-btn:hover { background: rgba(210,153,34,0.15); transform: scale(1.1); }
   `]
 })
 export class MatchesComponent implements OnInit {
@@ -150,6 +167,16 @@ export class MatchesComponent implements OnInit {
         this.loading.set(false);
       },
       error: () => this.loading.set(false)
+    });
+  }
+
+  eatMatch(event: Event, matchId: number): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!confirm('Biztosan meg akarod enni? 🧟‍♂️')) return;
+    this.matchService.eatMatch(matchId).subscribe({
+      next: () => this.matches.update(m => m.filter(x => x.match_id !== matchId)),
+      error: () => alert('Nem sikerült megenni... 😢')
     });
   }
 }
