@@ -1,0 +1,151 @@
+import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { MatchService } from '../../services/match.service';
+import { Match } from '../../models/match.model';
+import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
+
+@Component({
+  selector: 'app-matches',
+  standalone: true,
+  imports: [CommonModule, RouterLink, TimeAgoPipe],
+  template: `
+    <div class="matches-page">
+      <h2 class="page-title">❤️ Matcheid</h2>
+
+      @if (loading()) {
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      } @else if (matches().length === 0) {
+        <div class="empty-state">
+          <span class="big-emoji">💔</span>
+          <h3>Még nincsenek matcheid</h3>
+          <p>Swipe-olj, hátha valaki rád harap!</p>
+        </div>
+      } @else {
+        <div class="match-list">
+          @for (match of matches(); track match.id) {
+            <a [routerLink]="['/chat', match.id]" class="match-item">
+              <img [src]="match.user.profile_image || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + match.user.name"
+                   [alt]="match.user.name" class="match-avatar">
+              <div class="match-info">
+                <div class="match-header">
+                  <h4>{{ match.user.name }}</h4>
+                  <span class="match-type" [class.zombie]="match.user.type === 'zombie'">
+                    {{ match.user.type === 'zombie' ? '🧟' : '🏃' }}
+                  </span>
+                </div>
+                <p class="last-msg">{{ match.last_message || 'Még nincs üzenet...' }}</p>
+                <span class="match-time">{{ match.matched_at | timeAgo }}</span>
+              </div>
+            </a>
+          }
+        </div>
+      }
+    </div>
+  `,
+  styles: [`
+    .matches-page {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .page-title {
+      color: #e94560;
+      margin: 1rem 0;
+      font-size: 1.4rem;
+    }
+
+    .loading { display: flex; justify-content: center; margin-top: 3rem; }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid #2a2a4a;
+      border-top-color: #e94560;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state {
+      text-align: center;
+      margin-top: 4rem;
+      color: #888;
+    }
+    .big-emoji { font-size: 4rem; }
+    .empty-state h3 { color: #ccc; margin: 1rem 0 0.5rem; }
+
+    .match-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .match-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #16213e;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .match-item:hover { background: #1a2745; }
+
+    .match-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e94560;
+      flex-shrink: 0;
+    }
+
+    .match-info { flex: 1; min-width: 0; }
+
+    .match-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .match-header h4 {
+      color: #fff;
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .last-msg {
+      color: #888;
+      font-size: 0.85rem;
+      margin: 0.2rem 0 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .match-time {
+      color: #666;
+      font-size: 0.75rem;
+    }
+  `]
+})
+export class MatchesComponent implements OnInit {
+  matches = signal<Match[]>([]);
+  loading = signal(true);
+
+  constructor(private matchService: MatchService) {}
+
+  ngOnInit(): void {
+    this.matchService.getMatches().subscribe({
+      next: (m) => {
+        this.matches.set(m);
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
+  }
+}
