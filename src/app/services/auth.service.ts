@@ -40,12 +40,17 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.post(`${this.apiUrl}/logout`, {}).subscribe();
-    localStorage.removeItem('zt_token');
-    localStorage.removeItem('zt_user');
-    this.currentUser.set(null);
-    this.isLoggedIn.set(false);
-    this.router.navigate(['/login']);
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
+      error: () => {},
+    });
+    // Kis késleltetéssel töröljük, hogy az interceptor még megtalálja a tokent
+    setTimeout(() => {
+      localStorage.removeItem('zt_token');
+      localStorage.removeItem('zt_user');
+      this.currentUser.set(null);
+      this.isLoggedIn.set(false);
+      this.router.navigate(['/login']);
+    }, 100);
   }
 
   updateProfile(data: any): Observable<any> {

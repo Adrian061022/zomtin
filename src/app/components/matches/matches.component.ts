@@ -139,6 +139,11 @@ export class MatchesComponent implements OnInit {
   constructor(private matchService: MatchService) {}
 
   ngOnInit(): void {
+    this.loadMatches();
+  }
+
+  loadMatches(): void {
+    this.loading.set(true);
     this.matchService.getMatches().subscribe({
       next: (m) => {
         this.matches.set(m);
