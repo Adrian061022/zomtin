@@ -75,7 +75,7 @@ import { Profile } from '../../models/user.model';
     }
 
     .page-title {
-      color: #e94560;
+      color: #3fb950;
       margin: 1rem 0;
       font-size: 1.4rem;
     }
@@ -90,8 +90,8 @@ import { Profile } from '../../models/user.model';
 
     .spinner {
       width: 48px; height: 48px;
-      border: 4px solid #2a2a4a;
-      border-top-color: #e94560;
+      border: 4px solid #2d333b;
+      border-top-color: #3fb950;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -110,7 +110,7 @@ import { Profile } from '../../models/user.model';
     .card-stack { width: 100%; }
 
     .swipe-card {
-      background: #16213e;
+      background: #161b22;
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4);
@@ -132,7 +132,7 @@ import { Profile } from '../../models/user.model';
       width: 100%;
       height: 320px;
       overflow: hidden;
-      background: #0f3460;
+      background: #0d1117;
     }
 
     .card-image img {
@@ -149,12 +149,12 @@ import { Profile } from '../../models/user.model';
       border-radius: 2rem;
       font-size: 0.85rem;
       font-weight: 600;
-      background: rgba(46, 196, 182, 0.9);
+      background: rgba(123, 47, 242, 0.9);
       color: #fff;
     }
 
     .card-badge.zombie {
-      background: rgba(233, 69, 96, 0.9);
+      background: rgba(63, 185, 80, 0.9);
     }
 
     .card-info {
@@ -182,14 +182,14 @@ import { Profile } from '../../models/user.model';
     .level-bar {
       flex: 1;
       height: 8px;
-      background: #2a2a4a;
+      background: #2d333b;
       border-radius: 4px;
       overflow: hidden;
     }
 
     .level-fill {
       height: 100%;
-      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      background: linear-gradient(90deg, #3fb950, #56d364);
       border-radius: 4px;
       transition: width 0.3s;
     }
@@ -201,8 +201,8 @@ import { Profile } from '../../models/user.model';
     }
 
     .tag {
-      background: rgba(233, 69, 96, 0.15);
-      color: #e94560;
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
       padding: 0.25rem 0.6rem;
       border-radius: 1rem;
       font-size: 0.8rem;
@@ -221,7 +221,7 @@ import { Profile } from '../../models/user.model';
       align-items: center;
       gap: 0.25rem;
       padding: 0.75rem 1.5rem;
-      border: 2px solid #2a2a4a;
+      border: 2px solid #2d333b;
       border-radius: 1rem;
       background: transparent;
       color: #ccc;
@@ -235,8 +235,8 @@ import { Profile } from '../../models/user.model';
     .action-btn span { font-size: 0.75rem; }
 
     .action-btn.dislike:hover { border-color: #888; background: rgba(136,136,136,0.1); }
-    .action-btn.like:hover { border-color: #e94560; background: rgba(233,69,96,0.1); }
-    .action-btn.eat:hover { border-color: #ff9800; background: rgba(255,152,0,0.1); }
+    .action-btn.like:hover { border-color: #3fb950; background: rgba(63,185,80,0.1); }
+    .action-btn.eat:hover { border-color: #d29922; background: rgba(255,152,0,0.1); }
 
     .match-overlay {
       position: fixed;
@@ -249,7 +249,7 @@ import { Profile } from '../../models/user.model';
     }
 
     .match-popup {
-      background: #16213e;
+      background: #161b22;
       padding: 2.5rem;
       border-radius: 1.5rem;
       text-align: center;
@@ -262,12 +262,12 @@ import { Profile } from '../../models/user.model';
     }
 
     .match-emoji { font-size: 4rem; }
-    .match-popup h2 { color: #e94560; font-size: 2rem; margin: 0.5rem 0; }
+    .match-popup h2 { color: #3fb950; font-size: 2rem; margin: 0.5rem 0; }
     .match-popup p { color: #ccc; margin-bottom: 1.5rem; }
 
     .btn-primary {
       padding: 0.75rem 2rem;
-      background: #e94560;
+      background: #3fb950;
       color: white;
       border: none;
       border-radius: 0.5rem;

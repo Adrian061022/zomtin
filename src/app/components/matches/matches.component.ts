@@ -52,7 +52,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
     }
 
     .page-title {
-      color: #e94560;
+      color: #3fb950;
       margin: 1rem 0;
       font-size: 1.4rem;
     }
@@ -60,8 +60,8 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
     .loading { display: flex; justify-content: center; margin-top: 3rem; }
     .spinner {
       width: 48px; height: 48px;
-      border: 4px solid #2a2a4a;
-      border-top-color: #e94560;
+      border: 4px solid #2d333b;
+      border-top-color: #3fb950;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -86,20 +86,20 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       align-items: center;
       gap: 1rem;
       padding: 1rem;
-      background: #16213e;
+      background: #161b22;
       border-radius: 0.75rem;
       text-decoration: none;
       transition: background 0.2s;
     }
 
-    .match-item:hover { background: #1a2745; }
+    .match-item:hover { background: #1c2128; }
 
     .match-avatar {
       width: 56px;
       height: 56px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid #e94560;
+      border: 2px solid #3fb950;
       flex-shrink: 0;
     }
 

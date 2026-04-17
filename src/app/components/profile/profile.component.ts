@@ -105,13 +105,13 @@ import { User } from '../../models/user.model';
     }
 
     .page-title {
-      color: #e94560;
+      color: #3fb950;
       margin: 1rem 0;
       font-size: 1.4rem;
     }
 
     .profile-card {
-      background: #16213e;
+      background: #161b22;
       border-radius: 1rem;
       padding: 1.5rem;
       box-shadow: 0 8px 32px rgba(0,0,0,0.3);
@@ -129,18 +129,18 @@ import { User } from '../../models/user.model';
       height: 80px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #e94560;
+      border: 3px solid #3fb950;
     }
 
     .profile-header h3 { color: #fff; margin: 0 0 0.3rem; font-size: 1.3rem; }
 
     .user-type {
-      color: #2ec4b6;
+      color: #7b2ff2;
       font-size: 0.9rem;
       font-weight: 600;
     }
 
-    .user-type.zombie { color: #e94560; }
+    .user-type.zombie { color: #3fb950; }
 
     .profile-details {
       display: flex;
@@ -169,8 +169,8 @@ import { User } from '../../models/user.model';
     }
 
     .tag {
-      background: rgba(233, 69, 96, 0.15);
-      color: #e94560;
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
       padding: 0.2rem 0.5rem;
       border-radius: 1rem;
       font-size: 0.8rem;
@@ -186,9 +186,9 @@ import { User } from '../../models/user.model';
     .type-btn {
       flex: 1;
       padding: 0.75rem;
-      border: 2px solid #2a2a4a;
+      border: 2px solid #2d333b;
       border-radius: 0.5rem;
-      background: #0f3460;
+      background: #0d1117;
       color: #ccc;
       font-size: 1rem;
       cursor: pointer;
@@ -196,13 +196,13 @@ import { User } from '../../models/user.model';
     }
 
     .type-btn.selected {
-      border-color: #e94560;
-      color: #e94560;
-      background: rgba(233, 69, 96, 0.1);
+      border-color: #3fb950;
+      color: #3fb950;
+      background: rgba(63, 185, 80, 0.1);
     }
 
     .no-profile-hint {
-      color: #ff9800;
+      color: #d29922;
       text-align: center;
       margin-top: 1rem;
       font-size: 0.9rem;
@@ -218,16 +218,16 @@ import { User } from '../../models/user.model';
     input, textarea {
       width: 100%;
       padding: 0.75rem 1rem;
-      border: 2px solid #2a2a4a;
+      border: 2px solid #2d333b;
       border-radius: 0.5rem;
-      background: #0f3460;
+      background: #0d1117;
       color: #fff;
       font-size: 1rem;
       box-sizing: border-box;
       font-family: inherit;
     }
 
-    input:focus, textarea:focus { outline: none; border-color: #e94560; }
+    input:focus, textarea:focus { outline: none; border-color: #3fb950; }
 
     .form-actions {
       display: flex;
@@ -238,7 +238,7 @@ import { User } from '../../models/user.model';
     .btn-primary {
       flex: 1;
       padding: 0.75rem;
-      background: #e94560;
+      background: #3fb950;
       color: white;
       border: none;
       border-radius: 0.5rem;
@@ -247,7 +247,7 @@ import { User } from '../../models/user.model';
       cursor: pointer;
     }
 
-    .btn-primary:hover:not(:disabled) { background: #c73550; }
+    .btn-primary:hover:not(:disabled) { background: #2ea043; }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
     .btn-secondary {
@@ -255,7 +255,7 @@ import { User } from '../../models/user.model';
       padding: 0.75rem;
       background: transparent;
       color: #ccc;
-      border: 2px solid #2a2a4a;
+      border: 2px solid #2d333b;
       border-radius: 0.5rem;
       font-size: 1rem;
       cursor: pointer;
@@ -264,8 +264,8 @@ import { User } from '../../models/user.model';
     .btn-secondary:hover { border-color: #888; }
 
     .error-banner {
-      background: rgba(233, 69, 96, 0.15);
-      color: #e94560;
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
       padding: 0.75rem;
       border-radius: 0.5rem;
       margin-bottom: 1rem;
@@ -273,8 +273,8 @@ import { User } from '../../models/user.model';
     }
 
     .success-banner {
-      background: rgba(46, 196, 182, 0.15);
-      color: #2ec4b6;
+      background: rgba(123, 47, 242, 0.15);
+      color: #7b2ff2;
       padding: 0.75rem;
       border-radius: 0.5rem;
       margin-bottom: 1rem;

@@ -65,12 +65,12 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       align-items: center;
       gap: 1rem;
       padding: 0.75rem 1rem;
-      background: #16213e;
-      border-bottom: 1px solid #2a2a4a;
+      background: #161b22;
+      border-bottom: 1px solid #2d333b;
     }
 
     .back-btn {
-      color: #e94560;
+      color: #3fb950;
       text-decoration: none;
       font-weight: 600;
     }
@@ -89,8 +89,8 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
     .loading { display: flex; justify-content: center; margin-top: 2rem; }
     .spinner {
       width: 36px; height: 36px;
-      border: 3px solid #2a2a4a;
-      border-top-color: #e94560;
+      border: 3px solid #2d333b;
+      border-top-color: #3fb950;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -122,13 +122,13 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
     }
 
     .sent .bubble {
-      background: #e94560;
+      background: #3fb950;
       color: white;
       border-bottom-right-radius: 0.25rem;
     }
 
     .received .bubble {
-      background: #1a2745;
+      background: #1c2128;
       color: #ddd;
       border-bottom-left-radius: 0.25rem;
     }
@@ -140,29 +140,29 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       display: flex;
       gap: 0.5rem;
       padding: 0.75rem 1rem;
-      background: #16213e;
-      border-top: 1px solid #2a2a4a;
+      background: #161b22;
+      border-top: 1px solid #2d333b;
     }
 
     .chat-input input {
       flex: 1;
       padding: 0.75rem 1rem;
-      border: 2px solid #2a2a4a;
+      border: 2px solid #2d333b;
       border-radius: 2rem;
-      background: #0f3460;
+      background: #0d1117;
       color: #fff;
       font-size: 1rem;
       outline: none;
     }
 
-    .chat-input input:focus { border-color: #e94560; }
+    .chat-input input:focus { border-color: #3fb950; }
 
     .send-btn {
       width: 48px;
       height: 48px;
       border: none;
       border-radius: 50%;
-      background: #e94560;
+      background: #3fb950;
       font-size: 1.3rem;
       cursor: pointer;
       display: flex;
@@ -172,7 +172,7 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       flex-shrink: 0;
     }
 
-    .send-btn:hover:not(:disabled) { background: #c73550; }
+    .send-btn:hover:not(:disabled) { background: #2ea043; }
     .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
     @media (max-width: 600px) {

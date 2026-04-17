@@ -38,8 +38,8 @@ import { AuthService } from '../../services/auth.service';
       justify-content: space-between;
       align-items: center;
       padding: 0.75rem 1.5rem;
-      background: #1a1a2e;
-      border-bottom: 2px solid #e94560;
+      background: #161b22;
+      border-bottom: 2px solid #3fb950;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -48,7 +48,7 @@ import { AuthService } from '../../services/auth.service';
     .logo {
       font-size: 1.4rem;
       font-weight: 800;
-      color: #e94560;
+      color: #3fb950;
       text-decoration: none;
     }
 
@@ -64,7 +64,7 @@ import { AuthService } from '../../services/auth.service';
       gap: 0.4rem;
       padding: 0.5rem 0.75rem;
       border-radius: 0.5rem;
-      color: #ccc;
+      color: #adbac7;
       text-decoration: none;
       font-size: 0.9rem;
       transition: all 0.2s;
@@ -75,8 +75,8 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .nav-link:hover, .nav-link.active {
-      background: rgba(233, 69, 96, 0.15);
-      color: #e94560;
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
     }
 
     .icon { font-size: 1.2rem; }

@@ -72,7 +72,7 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .auth-card {
-      background: #16213e;
+      background: #161b22;
       border-radius: 1rem;
       padding: 2.5rem;
       width: 100%;
@@ -80,7 +80,7 @@ import { AuthService } from '../../services/auth.service';
       box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
 
-    h1 { color: #e94560; margin: 0 0 0.25rem; font-size: 1.8rem; }
+    h1 { color: #3fb950; margin: 0 0 0.25rem; font-size: 1.8rem; }
     .subtitle { color: #888; margin: 0 0 1.5rem; }
 
     .form-group { margin-bottom: 1.25rem; }
@@ -95,16 +95,16 @@ import { AuthService } from '../../services/auth.service';
     input {
       width: 100%;
       padding: 0.75rem 1rem;
-      border: 2px solid #2a2a4a;
+      border: 2px solid #2d333b;
       border-radius: 0.5rem;
-      background: #0f3460;
+      background: #0d1117;
       color: #fff;
       font-size: 1rem;
       box-sizing: border-box;
       transition: border-color 0.2s;
     }
 
-    input:focus { outline: none; border-color: #e94560; }
+    input:focus { outline: none; border-color: #3fb950; }
 
     .type-selector {
       display: flex;
@@ -114,9 +114,9 @@ import { AuthService } from '../../services/auth.service';
     .type-btn {
       flex: 1;
       padding: 0.75rem;
-      border: 2px solid #2a2a4a;
+      border: 2px solid #2d333b;
       border-radius: 0.5rem;
-      background: #0f3460;
+      background: #0d1117;
       color: #ccc;
       font-size: 1rem;
       cursor: pointer;
@@ -124,21 +124,21 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .type-btn.selected {
-      border-color: #e94560;
-      color: #e94560;
-      background: rgba(233, 69, 96, 0.1);
+      border-color: #3fb950;
+      color: #3fb950;
+      background: rgba(63, 185, 80, 0.1);
     }
 
     .error {
-      color: #e94560;
+      color: #3fb950;
       font-size: 0.8rem;
       margin-top: 0.25rem;
       display: block;
     }
 
     .error-banner {
-      background: rgba(233, 69, 96, 0.15);
-      color: #e94560;
+      background: rgba(63, 185, 80, 0.15);
+      color: #3fb950;
       padding: 0.75rem;
       border-radius: 0.5rem;
       margin-bottom: 1rem;
@@ -148,7 +148,7 @@ import { AuthService } from '../../services/auth.service';
     .btn-primary {
       width: 100%;
       padding: 0.85rem;
-      background: #e94560;
+      background: #3fb950;
       color: white;
       border: none;
       border-radius: 0.5rem;
@@ -159,7 +159,7 @@ import { AuthService } from '../../services/auth.service';
       margin-top: 0.5rem;
     }
 
-    .btn-primary:hover:not(:disabled) { background: #c73550; }
+    .btn-primary:hover:not(:disabled) { background: #2ea043; }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
     .switch-link {
@@ -169,7 +169,7 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .switch-link a {
-      color: #e94560;
+      color: #3fb950;
       text-decoration: none;
       font-weight: 600;
     }
