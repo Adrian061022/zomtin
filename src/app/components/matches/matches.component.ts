@@ -38,7 +38,11 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
                 </div>
                 <span class="match-time">{{ match.created_at | timeAgo }}</span>
               </div>
+              @if (!eatenIds().has(match.match_id)) {
               <button class="eat-btn" (click)="eatMatch($event, match.match_id)" title="Megettem!">🍽️</button>
+              } @else {
+              <span class="eaten-badge">🦴 Megéve</span>
+              }
             </a>
           }
         </div>
@@ -147,11 +151,23 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
       justify-content: center;
     }
     .eat-btn:hover { background: rgba(210,153,34,0.15); transform: scale(1.1); }
+
+    .eaten-badge {
+      color: #d29922;
+      font-size: 0.85rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      padding: 0.3rem 0.6rem;
+      border: 2px solid #d29922;
+      border-radius: 1rem;
+      opacity: 0.8;
+    }
   `]
 })
 export class MatchesComponent implements OnInit {
   matches = signal<Match[]>([]);
   loading = signal(true);
+  eatenIds = signal<Set<number>>(new Set());
 
   constructor(private matchService: MatchService) {}
 
@@ -175,7 +191,7 @@ export class MatchesComponent implements OnInit {
     event.stopPropagation();
     if (!confirm('Biztosan meg akarod enni? 🧟‍♂️')) return;
     this.matchService.eatMatch(matchId).subscribe({
-      next: () => this.matches.update(m => m.filter(x => x.match_id !== matchId)),
+      next: () => this.eatenIds.update(s => new Set(s).add(matchId)),
       error: () => alert('Nem sikerült megenni... 😢')
     });
   }
